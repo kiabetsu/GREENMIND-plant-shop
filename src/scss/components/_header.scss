@@ -1,0 +1,53 @@
+
+.header {
+  width: 1200px;
+  height: 10vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 48px;
+  margin-top: 15px;
+}
+
+.header a{
+  text-decoration: none;
+  color: #1E1E1E;
+}
+
+.left-side{
+  margin: 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo{
+  font-family: 'Quella', sans-serif;
+  font-size: 24px;
+  margin-right: 60px;                                    
+}
+
+nav ul {
+  font-size: 18px;
+  display: flex;
+  list-style: none;
+  gap: 40px;
+}
+
+.right-side{
+  margin: 0px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.right-side a{
+  padding-left: 30px;
+}
+
+.menu {
+  border-left: solid 2px #1E1E1E;
+  margin-left: 30px;
+}
+
+

@@ -1,0 +1,92 @@
+.searchBlock{
+  width: 1200px;
+  height: 512px;
+  background-color: #C1DCDC;
+  border-radius: 24px;
+  position: relative;
+  color: #1E1E1E;
+  margin-bottom: 96px;
+
+  img {
+    position: absolute;
+    max-width: 100%;
+  }
+  .flower{
+    z-index: 30;
+    left: 750px;
+    bottom: 0px;
+  }
+  .rectangle{
+    z-index: 20;
+    left: 650px;
+    bottom: 0px;
+  }
+  .vector1{
+    z-index: 30;
+    left: 430px;
+    bottom: 150px;
+  }
+  .vector2{
+    z-index: 30;
+    left: 1050px;
+    top: 20px;
+  }
+
+  .searchInfo{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    font-weight: 800;
+    width: 512px;
+    left: 30px;
+    top: 50px;
+    h4{
+      font-size: 64px;
+    }
+
+    .miniInfo{
+      width: 512px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .miniInfo1{
+      padding-right: 40px;
+      border-right: solid 2px #1E1E1E;
+      margin-right: 40px;
+    }
+
+    h5{
+      font-size: 32px;
+    }
+    p{
+      font-size: 18px;
+    }
+  }
+  .searchInput{
+    position: absolute;
+    border: none;
+    border-radius: 12px;
+    height: 64px;
+    width: 450px;
+    padding-left: 20px;
+    left: 30px;
+    bottom: 70px;
+    font-size: 18px;
+  }
+  .searchButton{
+    position: absolute;
+    background-color: #C1DCDC;
+    color: #1E1E1E;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 12px;
+    bottom: 78px;
+    left: 445px;
+    cursor: pointer;
+  }
+}
+

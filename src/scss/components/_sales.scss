@@ -1,0 +1,38 @@
+.sales{
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-bottom: 100px;
+
+    .seeMore{
+      display: flex;
+      justify-content: end;
+      flex-direction: column;
+      width: 200px;
+    
+      h5{
+        font-size: 32px;
+        margin-bottom: 12px;
+      }
+      
+      p{
+        font-size: 18px;
+        color: #1E1E1E;
+        opacity: 0.5;
+        padding-bottom: 24px;
+      }
+      
+      button{
+        width: 168px;
+        height: 50px;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 24px;
+        cursor: pointer;
+      }
+    }
+}
