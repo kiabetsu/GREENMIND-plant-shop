@@ -1,9 +1,7 @@
 import './scss/app.scss';
 import Header from './components/header';
-import SearchBlock from './components/search';
-import Sales from './components/sales';
-import AboutUs from './components/aboutUs';
-import CategoriesExample from './components/categoriesExample';
+import Home from './components/home_page/home';
+import Products_page from './components/products_page/products_page';
 
 
 
@@ -11,10 +9,8 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <SearchBlock />
-      <Sales />
-      <AboutUs />
-      <CategoriesExample />
+      {/* <Home /> */}
+      <Products_page />
     </div>
   );
 }

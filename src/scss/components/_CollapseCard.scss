@@ -1,0 +1,59 @@
+
+.filter--block{
+  display: block;
+  background-color: #f3f3f3;
+  border-bottom: solid 1px #1e1e1e;
+  padding: 15px 6px;
+
+  &:first-child{
+    border-radius: 12px 12px 0 0;
+  }
+  &:last-child{
+    border-radius: 0 0 12px 12px;
+    border: none;
+  }
+
+  &:hover{
+    background-color: lighten(#f3f3f3, 3%);
+  }
+}
+
+.filter--title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding-left: 8px;
+    padding-right: 5px;
+    margin-bottom: 10px;
+    
+    &:hover{
+      svg{
+        background-color: #C1DCDC;
+        border-radius: 10px;
+      }
+    }
+
+    .zeroRotate{
+      transition: 0.2s;
+      transform: rotate(360deg)
+    }
+    .rotate{
+      transform: rotate(180deg);
+      transition: 0.2s;
+    }
+  }
+
+.filter--content{
+    overflow-y: hidden;
+    max-height: 0;
+    animation: smooth-appear 0.5s ease forwards;
+  }
+
+
+@keyframes smooth-appear {
+  to{
+    // opacity:1;
+    max-height: 400px;
+  }
+}

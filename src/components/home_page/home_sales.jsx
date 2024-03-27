@@ -1,5 +1,5 @@
 import { MoveRight } from 'lucide-react';
-import FlowerBlock from './flowerBlock';
+import FlowerBlock from '../flowerBlock';
 
 function Sales() {
   return (
