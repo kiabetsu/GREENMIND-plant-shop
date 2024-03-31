@@ -1,3 +1,32 @@
 @import './filter';
+@import './sort';
+
+
+.products_page{
+  width: 1200px;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  
+
+  .products{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .content-top{
+      float: right;
+    }
+
+    .content-items{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+  }
+
+}
 
 

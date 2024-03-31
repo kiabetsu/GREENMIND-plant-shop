@@ -1,85 +1,43 @@
 
 .filter{
-  width: 300px;
+  width: 260px;
   display: flex;
   flex-direction: column;
   //text-align: center;
 
   .price_content{
-    width: 100%;
-    height: 48px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    margin-bottom: 25px;
-    overflow: hidden;
-
-    .separator{
-      width: 15%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: end;
+    .range-slider{
+      padding: 0 15px;
     }
 
-    .price_field{
-      width: 40%;
+
+
+    .input-box{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 240px;
+      width: 2402px;
+
+    }
+    .min-box, .max-box{
+      width: 45%;
 
       span{
-        padding-left: 8px;
-        font-size: 11px;
-        line-height: 16px;
-        color: #1e1e1e;
-        text-align: start;
+        font-size: 12px;
+        padding-left: 6px;
       }
 
       input{
-        width: 100%;
-        border: solid #1e1e1e 1px;
+        border: solid 1px #1e1e1e;
         border-radius: 8px;
         height: 20px;
-        font-size: 12px;
+        width: 100%;
         padding-left: 5px;
-        appearance: textfield;
-      }
-      input[type="number"]::-webkit-outer-spin-button,
-      input[type="number"]::-webkit-inner-spin-button{
-        -webkit-appearance: none;
       }
     }
   }
 
-  .slider{
-    height: 5px;
-    border-radius: 5px;
-    background-color: #ddd;
-    position: relative;
-
-    .progress{
-      height: 5px;
-      left: 25%;
-      right: 25%;
-      position: absolute;
-      border-radius: 5px;
-      background-color: #C1DCDC;
-    }
-  }
-
-  .range-input{
-    position: relative;
-
-    input{
-      position: absolute;
-      top: 50%;
-      width: 100%;
-      background: none;
-      pointer-events: none;
-      transform: translateY(-50%);
-      appearance: none;
-      
-    }
-  }
 
   .filter--content{
     .content{
@@ -87,10 +45,9 @@
       font-size: 14px;
       .type{
         margin-bottom: 10px;
-        &:last-child{
-          // margin-bottom: 0px;
-        }
       }
+
+
       /* checkbox */
        input[type="checkbox"] {
         display: none;

@@ -1,26 +1,69 @@
 import CollapseCard from '../CollapseCard/CollapseCard';
+import { useState } from 'react';
+import MultiRangeSlider, { ChangeResult } from 'multi-range-slider-react';
 
 function Filter() {
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(10000);
+  const [minPrice2, setMinPrice2] = useState(0);
+  const [maxPrice2, setMaxPrice2] = useState(0);
+
+  console.log(minPrice);
+
   return (
     <div className="filter">
       <CollapseCard title="Price">
         <div className="price_content">
-          <div className="price_field">
-            <span>Min</span>
-            <input type="number" className="inputMin" />
+          <div className="input-box">
+            <div className="min-box">
+              <div className="input-wrap">
+                <span className="input-addon">Min</span>
+                <input
+                  type="text"
+                  name="min-input"
+                  className="input-field min-input"
+                  value={minPrice}
+                />
+              </div>
+            </div>
+            <div className="max-box">
+              <div className="input-wrap">
+                <span className="input-addon">Max</span>
+                <input
+                  type="text"
+                  name="max-input"
+                  className="input-field max-input"
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(e)}
+                />
+              </div>
+            </div>
           </div>
-          <div className="separator">-</div>
-          <div className="price_field">
-            <span>Max</span>
-            <input type="number" className="inputMax" />
+          <div className="range-slider">
+            <MultiRangeSlider
+              min={0}
+              max={10000}
+              minValue={0}
+              maxValue={10000}
+              canMinMaxPriceSame={true}
+              onInput={(e: ChangeResult) => {
+                setMinPrice(e.minPrice);
+                setMaxPrice(e.maxPrice);
+              }}
+              onChange={(e: ChangeResult) => {
+                setMinPrice2(e.minPrice);
+                setMaxPrice2(e.maxPrice);
+              }}
+              label={false}
+              ruler={false}
+              style={{ border: 'none', boxShadow: 'none', padding: '15px 10px' }}
+              barLeftColor="darker(#f3f3f3, 8%)"
+              barInnerColor="#C1DCDC"
+              barRightColor="darker(#f3f3f3, 8%)"
+              thumbLeftColor="#C1DCDC"
+              thumbRightColor="#C1DCDC"
+            />
           </div>
-        </div>
-        <div className="slider">
-          <div className="progress"></div>
-        </div>
-        <div className="range-input">
-          <input type="range" className="range-min" min="0" max="10000" value="2500" />
-          <input type="range" className="range-max" min="0" max="10000" value="7500" />
         </div>
       </CollapseCard>
 
