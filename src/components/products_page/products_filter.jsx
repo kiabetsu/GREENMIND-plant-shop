@@ -8,6 +8,16 @@ function Filter() {
   const [minPrice2, setMinPrice2] = useState(0);
   const [maxPrice2, setMaxPrice2] = useState(0);
 
+  const careType = ['Easy', 'Medium', 'Hard'];
+  const hightType = [
+    [0, 50],
+    [50, 90],
+    [90, 120],
+    [120, 150],
+    [150, 180],
+    [180, 999],
+  ];
+
   console.log(minPrice);
 
   return (
@@ -23,6 +33,7 @@ function Filter() {
                   name="min-input"
                   className="input-field min-input"
                   value={minPrice}
+                  onChange={(e) => setMinPrice(e.target.value)}
                 />
               </div>
             </div>
@@ -34,7 +45,7 @@ function Filter() {
                   name="max-input"
                   className="input-field max-input"
                   value={maxPrice}
-                  onChange={(e) => setMaxPrice(e)}
+                  onChange={(e) => setMaxPrice(e.target.value)}
                 />
               </div>
             </div>
@@ -69,65 +80,69 @@ function Filter() {
 
       <CollapseCard style={{ marginTop: '10px' }} title="Care">
         <div className="content">
-          <label for="easy-ct-cb">
-            <div className="type">
-              <input name="ct-cb" id="easy-ct-cb" type="checkbox" />
-              <span>Easy (for beginners)</span>
-            </div>
-          </label>
-          <label htmlFor="medium-ct-cb">
-            <div className="type">
-              <input name="ct-cb" id="medium-ct-cb" type="checkbox" />
-              <span>Medium (for the experienced)</span>
-            </div>
-          </label>
-          <label htmlFor="hard-ct-cb">
-            <div className="type">
-              <input name="ct-cb" id="hard-ct-cb" type="checkbox" />
-              <span>Hard (for the advanced)</span>
-            </div>
-          </label>
+          {careType.map((value) => (
+            <label htmlFor={value}>
+              <div className="type">
+                <input name="ct-cb" id={value} type="checkbox" />
+                <span>{value}</span>
+              </div>
+            </label>
+          ))}
         </div>
       </CollapseCard>
 
       <CollapseCard title="Hight">
         <div className="content">
-          <label for="0-50-ht-cb">
+          {hightType.map((value, i) => (
+            <label htmlFor={value[0]}>
+              <div className="type">
+                <input name="ht-cb" id={value[0]} type="checkbox" />
+                {i != hightType.length - 1 ? (
+                  <span>
+                    from {value[0]} to {value[1]} sm
+                  </span>
+                ) : (
+                  <span>over {value[0]} sm</span>
+                )}
+              </div>
+            </label>
+          ))}
+          {/* <label htmlFor="0-50-ht-cb">
             <div className="type">
               <input name="ht-cb" id="0-50-ht-cb" type="checkbox" />
               <span>from 0 to 50 sm</span>
             </div>
           </label>
-          <label for="50-90-ht-cb">
+          <label htmlFor="50-90-ht-cb">
             <div className="type">
               <input name="ht-cb" id="50-90-ht-cb" type="checkbox" />
               <span>from 50 to 90 sm</span>
             </div>
           </label>
-          <label for="90-120-ht-cb">
+          <label htmlFor="90-120-ht-cb">
             <div className="type">
               <input name="ht-cb" id="90-120-ht-cb" type="checkbox" />
               <span>from 90 to 120 sm</span>
             </div>
           </label>
-          <label for="120-150-ht-cb">
+          <label htmlFor="120-150-ht-cb">
             <div className="type">
               <input name="ht-cb" id="120-150-ht-cb" type="checkbox" />
               <span>from 120 to 150 sm</span>
             </div>
           </label>
-          <label for="150-180-ht-cb">
+          <label htmlFor="150-180-ht-cb">
             <div className="type">
               <input name="ht-cb" id="150-180-ht-cb" type="checkbox" />
               <span>from 150 to 180 sm</span>
             </div>
           </label>
-          <label for="0-50-ht-cb">
+          <label htmlFor="0-50-ht-cb">
             <div className="type">
               <input name="ht-cb" id="0-50-ht-cb" type="checkbox" />
               <span>over 180 sm</span>
             </div>
-          </label>
+          </label> */}
         </div>
       </CollapseCard>
     </div>

@@ -1,6 +1,7 @@
 import Filter from './products_filter';
 import Sort from '../Sort';
 import FlowerBlock from '../flowerBlock';
+import flowers from '../../assets/flowers.json';
 
 function Products_page() {
   return (
@@ -13,15 +14,9 @@ function Products_page() {
           <Sort />
         </div>
         <div className="content-items">
-          <FlowerBlock />
-          <FlowerBlock />
-          <FlowerBlock />
-          <FlowerBlock />
-          <FlowerBlock />
-          <FlowerBlock />
-          <FlowerBlock />
-          <FlowerBlock />
-          <FlowerBlock />
+          {flowers.map((obj) => (
+            <FlowerBlock key={obj.id} {...obj} />
+          ))}
         </div>
       </div>
     </div>

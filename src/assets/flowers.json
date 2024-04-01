@@ -1,0 +1,101 @@
+[
+  {
+    "id": 0,
+    "image": "https://tropichouse.ru/upload/iblock/d58/4thk96fdv6auuo0z5j9hmmvmfsrv6dls.jpg",
+    "name": "Dracaena Lemon Lime",
+    "pot": [0, 1],
+    "colorPot": ["White", "Grey", "Black"],
+    "price": 15700,
+    "care": 0,
+    "hight": 110,
+    "rating": 10
+  },
+  {
+    "id": 1,
+    "image": "https://tropichouse.ru/upload/iblock/2c8/c10p0p4iuh5ddznhx8wfk21p9wiejc7e.jpg",
+    "name": "Yucca",
+    "pot": [0, 1],
+    "colorPot": ["White", "Grey", "Black"],
+    "price": 15800,
+    "care": 0,
+    "hight": 100,
+    "rating": 9
+  },
+  {
+    "id": 2,
+    "image": "https://tropichouse.ru/upload/iblock/c22/9qsl81kfsz8u8nd3ajkpfqdelr8f1g3c.jpg",
+    "name": "Composition with cacti",
+    "pot": [0, 1],
+    "colorPot": ["White", "Grey", "Black"],
+    "price": 10300,
+    "care": 0,
+    "hight": 25,
+    "rating": 1
+  },
+  {
+    "id": 3,
+    "image": "https://tropichouse.ru/upload/iblock/ed6/cz2xviuti8bmwyzrh2qzgc4xtnr1oafw.jpg",
+    "name": "Hamedorea",
+    "pot": [0, 1],
+    "colorPot": ["White", "Grey", "Black"],
+    "price": 3300,
+    "care": 1,
+    "hight": 35,
+    "rating": 3
+  },
+  {
+    "id": 4,
+    "image": "https://tropichouse.ru/upload/iblock/182/cnbhv2ek4rmka2vxfdl7fz0n1ovfs4gc.jpg",
+    "name": "Ficus Exotica cylinder",
+    "pot": [0, 1],
+    "colorPot": ["White", "Grey", "Black"],
+    "price": 23800,
+    "care": 1,
+    "hight": 140,
+    "rating": 7
+  },
+  {
+    "id": 5,
+    "image": "https://tropichouse.ru/upload/iblock/063/p30ufr7qyq7e3hadb8yrm2hro8j5dgig.jpg",
+    "name": "Dendrobium is white",
+    "pot": [0, 1],
+    "colorPot": ["White", "Grey", "Black"],
+    "price": 5950,
+    "care": 1,
+    "hight": 50,
+    "rating": 4
+  },
+  {
+    "id": 6,
+    "image": "https://tropichouse.ru/upload/iblock/395/g8bsa99zmne9xi9wm1ue3foultdbvx8u.jpg",
+    "name": "Ficus bonsai",
+    "pot": [0, 1],
+    "colorPot": ["White", "Grey", "Black"],
+    "price": 28850,
+    "care": 2,
+    "hight": 110,
+    "rating": 8
+  },
+  {
+    "id": 7,
+    "image": "https://tropichouse.ru/upload/iblock/fc0/qlkumu92yx6w72hu91rive8ybsuzqr13.jpg",
+    "name": "Myrtle",
+    "pot": [0, 1],
+    "colorPot": ["White", "Grey", "Black"],
+    "price": 4550,
+    "care": 2,
+    "hight": 30,
+    "rating": 5
+  },
+  {
+    "id": 8,
+    "image": "https://tropichouse.ru/upload/iblock/894/637sgt29ugkk6fz1y8ezmfaer7qz70qm.jpg",
+    "name": "Citrus",
+    "pot": [0, 1],
+    "colorPot": ["White", "Grey", "Black"],
+    "price": 17150,
+    "care": 2,
+    "hight": 70,
+    "rating": 6
+  }
+]

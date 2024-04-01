@@ -1,27 +1,48 @@
+import React from 'react';
 import { Plus } from 'lucide-react';
 
-function FlowerBlock() {
+function FlowerBlock({ name, image, pot, colorPot, price, care, hight }) {
+  const potType = ['With a pot', 'Without a pot'];
+  const [activePot, setActivePot] = React.useState(0);
+  const [activeColor, setActiveColor] = React.useState(0);
   return (
     <div className="flowerBlock">
+      <div className="flowerImage">
+        <a href="">
+          <img src={image} alt="plantPng" />
+        </a>
+      </div>
       <a href="">
-        <img src={'img/plants/Frame 9.png'} alt="plantPng" />
-      </a>
-      <a href="">
-        <h4>Natural plants</h4>
+        <h4>{name}</h4>
       </a>
       <div className="flowerBlock__selector">
         <ul>
-          <li className="active">With a pot</li>
-          <li>Without a pot</li>
+          {pot.map((value) => (
+            <li
+              key={value}
+              onClick={() => setActivePot(value)}
+              className={activePot === value ? 'active' : ''}>
+              {potType[value]}
+            </li>
+          ))}
         </ul>
         <ul>
-          <li className="active">White</li>
-          <li>Grey</li>
-          <li>Black</li>
+          {activePot === 0 &&
+            colorPot.map((calor, i) => (
+              <li
+                key={i}
+                onClick={() => setActiveColor(i)}
+                className={activeColor === i ? 'active' : ''}>
+                {calor}
+              </li>
+            ))}
         </ul>
       </div>
       <div className="flowerBlock__bottom">
-        <div className="flowerBlock__price">₱ 1,400.00</div>
+        <div className="flowerBlock__bottom__info">
+          <div className="flowerBlock__bottom__hight">hight {hight} sm</div>
+          <div className="flowerBlock__bottom__price">₱ {price}.00</div>
+        </div>
         <button className="button button--outline button--add">
           <Plus size={18} strokeWidth={2} />
           &nbsp; <span>Add</span>
