@@ -5,8 +5,8 @@ import MultiRangeSlider, { ChangeResult } from 'multi-range-slider-react';
 function Filter() {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(10000);
-  const [minPrice2, setMinPrice2] = useState(0);
-  const [maxPrice2, setMaxPrice2] = useState(0);
+  // const [minPrice2, setMinPrice2] = useState(0);
+  // const [maxPrice2, setMaxPrice2] = useState(0);
 
   const careType = ['Easy', 'Medium', 'Hard'];
   const hightType = [
@@ -17,8 +17,6 @@ function Filter() {
     [150, 180],
     [180, 999],
   ];
-
-  console.log(minPrice);
 
   return (
     <div className="filter">
@@ -51,7 +49,7 @@ function Filter() {
             </div>
           </div>
           <div className="range-slider">
-            <MultiRangeSlider
+            {/* <MultiRangeSlider
               min={0}
               max={10000}
               minValue={0}
@@ -73,15 +71,15 @@ function Filter() {
               barRightColor="darker(#f3f3f3, 8%)"
               thumbLeftColor="#C1DCDC"
               thumbRightColor="#C1DCDC"
-            />
+            /> */}
           </div>
         </div>
       </CollapseCard>
 
       <CollapseCard style={{ marginTop: '10px' }} title="Care">
         <div className="content">
-          {careType.map((value) => (
-            <label htmlFor={value}>
+          {careType.map((value, i) => (
+            <label key={i} htmlFor={value}>
               <div className="type">
                 <input name="ct-cb" id={value} type="checkbox" />
                 <span>{value}</span>
@@ -94,10 +92,10 @@ function Filter() {
       <CollapseCard title="Hight">
         <div className="content">
           {hightType.map((value, i) => (
-            <label htmlFor={value[0]}>
+            <label key={i} htmlFor={value[0]}>
               <div className="type">
                 <input name="ht-cb" id={value[0]} type="checkbox" />
-                {i != hightType.length - 1 ? (
+                {i !== hightType.length - 1 ? (
                   <span>
                     from {value[0]} to {value[1]} sm
                   </span>
@@ -107,42 +105,6 @@ function Filter() {
               </div>
             </label>
           ))}
-          {/* <label htmlFor="0-50-ht-cb">
-            <div className="type">
-              <input name="ht-cb" id="0-50-ht-cb" type="checkbox" />
-              <span>from 0 to 50 sm</span>
-            </div>
-          </label>
-          <label htmlFor="50-90-ht-cb">
-            <div className="type">
-              <input name="ht-cb" id="50-90-ht-cb" type="checkbox" />
-              <span>from 50 to 90 sm</span>
-            </div>
-          </label>
-          <label htmlFor="90-120-ht-cb">
-            <div className="type">
-              <input name="ht-cb" id="90-120-ht-cb" type="checkbox" />
-              <span>from 90 to 120 sm</span>
-            </div>
-          </label>
-          <label htmlFor="120-150-ht-cb">
-            <div className="type">
-              <input name="ht-cb" id="120-150-ht-cb" type="checkbox" />
-              <span>from 120 to 150 sm</span>
-            </div>
-          </label>
-          <label htmlFor="150-180-ht-cb">
-            <div className="type">
-              <input name="ht-cb" id="150-180-ht-cb" type="checkbox" />
-              <span>from 150 to 180 sm</span>
-            </div>
-          </label>
-          <label htmlFor="0-50-ht-cb">
-            <div className="type">
-              <input name="ht-cb" id="0-50-ht-cb" type="checkbox" />
-              <span>over 180 sm</span>
-            </div>
-          </label> */}
         </div>
       </CollapseCard>
     </div>

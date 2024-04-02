@@ -33,10 +33,17 @@
 }
 
 nav ul {
-  font-size: 18px;
+  font-size: 16px;
   display: flex;
+  align-items: center;
   list-style: none;
   gap: 40px;
+  opacity: 0.5;
+
+  .active{
+    font-size: 18px;
+    opacity: 1;
+  }
 }
 
 .right-side{
