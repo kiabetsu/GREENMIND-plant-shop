@@ -1,7 +1,25 @@
+import React from 'react';
+
 import { MoveRight } from 'lucide-react';
-import FlowerBlock from '../flowerBlock';
+import FlowerBlock from '../FlowerBlock/flowerBlock';
+import Skeleton from '../FlowerBlock/flowerBlockSkeleton';
 
 function Sales() {
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [flowersItems, setFlowersItems] = React.useState([]);
+
+  React.useEffect(() => {
+    fetch('https://660bbfc3ccda4cbc75dd9c98.mockapi.io/items')
+      .then((res) => {
+        return res.json();
+      })
+      .then((json) => {
+        setFlowersItems(json);
+        setIsLoading(false);
+        console.log('fsdfsdfsd ', flowersItems);
+      });
+  }, []);
+
   return (
     <div className="sales">
       <div className="seeMore">
@@ -20,7 +38,9 @@ function Sales() {
           <MoveRight strokeWidth={1} />
         </button>
       </div>
-      <FlowerBlock />
+      {isLoading
+        ? [...new Array(3)].map((_, i) => <Skeleton key={i} />)
+        : flowersItems.slice(0, 3).map((obj) => <FlowerBlock key={obj.id} {...obj} />)}
     </div>
   );
 }

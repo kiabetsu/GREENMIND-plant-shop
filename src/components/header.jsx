@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import { User, ShoppingCart, Menu } from 'lucide-react';
 
 function Header() {
@@ -8,14 +10,14 @@ function Header() {
   return (
     <div className="header">
       <div className="left-side">
-        <a className="logo" href="#">
+        <Link className="logo" to="/">
           GREENMIND
-        </a>
+        </Link>
         <nav>
           <ul>
             {pageList.map((value, i) => (
               <li onClick={() => setActivePage(i)} className={i === activePage ? 'active' : ''}>
-                <a href="#">{value}</a>
+                <Link to={value}>{value}</Link>
               </li>
             ))}
           </ul>
