@@ -15,28 +15,30 @@ function FlowerBlock({ name, image, pot, colorPot, price, care, hight }) {
       <a href="">
         <h4>{name}</h4>
       </a>
-      <div className="flowerBlock__selector">
-        <ul>
-          {pot.map((value) => (
-            <li
-              key={value}
-              onClick={() => setActivePot(value)}
-              className={activePot === value ? 'active' : ''}>
-              {potType[value]}
-            </li>
-          ))}
-        </ul>
-        <ul>
-          {activePot === 0 &&
-            colorPot.map((calor, i) => (
+      <div style={{ minHeight: 104 }}>
+        <div className="flowerBlock__selector">
+          <ul>
+            {pot.map((value) => (
               <li
-                key={i}
-                onClick={() => setActiveColor(i)}
-                className={activeColor === i ? 'active' : ''}>
-                {calor}
+                key={value}
+                onClick={() => setActivePot(value)}
+                className={activePot === value ? 'active' : ''}>
+                {potType[value]}
               </li>
             ))}
-        </ul>
+          </ul>
+          <ul>
+            {activePot === 0 &&
+              colorPot.map((calor, i) => (
+                <li
+                  key={i}
+                  onClick={() => setActiveColor(i)}
+                  className={activeColor === i ? 'active' : ''}>
+                  {calor}
+                </li>
+              ))}
+          </ul>
+        </div>
       </div>
       <div className="flowerBlock__bottom">
         <div className="flowerBlock__bottom__info">

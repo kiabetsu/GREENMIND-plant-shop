@@ -16,8 +16,11 @@ function Header() {
         <nav>
           <ul>
             {pageList.map((value, i) => (
-              <li onClick={() => setActivePage(i)} className={i === activePage ? 'active' : ''}>
-                <Link to={value}>{value}</Link>
+              <li
+                key={i}
+                onClick={() => setActivePage(i)}
+                className={i === activePage ? 'active' : ''}>
+                {value === 'Home' ? <Link to="/">{value}</Link> : <Link to={value}>{value}</Link>}
               </li>
             ))}
           </ul>

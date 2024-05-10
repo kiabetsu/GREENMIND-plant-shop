@@ -3,6 +3,7 @@
   width: 260px;
   display: flex;
   flex-direction: column;
+  margin-top: 66px;
   //text-align: center;
 
   .price_content{
@@ -90,12 +91,22 @@
         border: 2px solid #1e1e1e;
         width: 1.15em;
         height: 1.15em;
-        background: #C1DCDC;
+        background: rgba(30, 243, 254, 0.15);;
         box-shadow: 2px 1px 0 #50565a;
       }
       /* checkbox end */
     }
 
+  }
+  .button-apply{
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 0 12px 12px;
+    border-top: 2px #1e1e1e;
+    font-weight: bold;
+    font-size: 16px;
   }
 
 

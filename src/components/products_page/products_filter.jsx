@@ -107,6 +107,7 @@ function Filter() {
           ))}
         </div>
       </CollapseCard>
+      <button className="button button-apply">Apply</button>
     </div>
   );
 }
