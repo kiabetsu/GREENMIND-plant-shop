@@ -27,9 +27,9 @@ function Header() {
         </nav>
       </div>
       <div className="right-side">
-        <a href="">
+        <Link to="/cart">
           <ShoppingCart />
-        </a>
+        </Link>
         <a href="">
           <User />
         </a>

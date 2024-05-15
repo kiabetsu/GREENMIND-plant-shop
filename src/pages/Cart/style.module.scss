@@ -1,0 +1,24 @@
+.TopContent{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: end;
+    margin-bottom: 10px;
+
+    .CartLabel{
+        display: flex;
+        justify-content: start;
+        font-size: 22px;
+        align-items: center;
+    }
+
+    .TrashCan{
+        opacity: 0.5;
+        font-size: 14px;
+        align-items: center;
+
+        :hover{
+            cursor: pointer;
+        }
+    }
+}

@@ -1,0 +1,129 @@
+.CartFlowerBlock{
+    width: 1000px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    border-top: 1px solid #b3b3b3;
+    border-bottom: 1px solid #b3b3b3;
+    // border: solid #1E1E1E;
+    padding: 0 10px;
+
+    @media(max-width: 1200px){
+        width: 800px;
+    }
+    @media(max-width: 900px){
+        width: 600px;
+    }
+    @media(max-width: 650px){
+        width: 500px;
+    }
+    @media(max-width: 530px){
+        width: 375px;
+    }
+    @media(max-width: 400px){
+        width: 350px;
+        padding: 0 5px;
+    }
+
+    .Position{ 
+        width: 40%;
+
+        a{
+            width: 100%;
+            display: flex;
+            justify-content: start;
+            flex-direction: row;
+            align-items: center;
+            text-decoration: none;
+            color: #1E1E1E;
+            
+            
+
+            img{
+                height: 200px;
+            }
+            
+            .Info{
+                .MainInfo{
+
+                }
+
+                .MiniInfo{
+                    opacity: 0.5;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+
+    button{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        border-color: #C1DCDC;
+
+        text-align: center;
+        cursor: pointer;
+        transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+        
+        border: 2px solid #C1DCDC;
+      
+      
+        &,
+        span {
+          color: #1E1E1E;
+        }
+      
+        i,
+        span,
+        path,
+        svg {
+          transition: all 0.15s ease-in-out;
+        }
+      
+        &:hover {
+          background-color: darken(#C1DCDC, 8%);
+          border: none;
+        }
+      
+        &:active {
+          background-color: darken(#C1DCDC, 12%);
+          transform: translateY(1px);
+        }
+    }
+
+    .Counters{
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        align-items: center;
+        gap: 150px;
+
+        @media(max-width: 900px){
+            gap: 20px
+        }
+        @media(max-width: 530px){
+            flex-direction: column;
+        }
+
+        .PositionCounter{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+
+
+            button{
+                height: 40px;
+                width: 40px;
+                border-radius: 20px;
+            }
+
+        }
+    }
+
+
+}
