@@ -1,9 +1,13 @@
+a{
+    text-decoration: none;
+    
+}
+
 .TopContent{
     display: flex;
     justify-content: space-between;
     flex-direction: row;
     align-items: end;
-    margin-bottom: 10px;
 
     .CartLabel{
         display: flex;
@@ -22,3 +26,74 @@
         }
     }
 }
+
+.MidContent{
+    margin: 10px 0;
+}
+
+.BotContent{
+    display: flex;
+    justify-content: space-between;
+
+    button{
+        min-width: 130px;
+        height: 50px;
+        border-radius: 25px;
+        font-size: 20px;
+        font-weight: 500;
+
+        margin-top: 5px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        border-color: #C1DCDC;
+
+        text-align: center;
+        cursor: pointer;
+        transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+        
+        border: 2px solid #C1DCDC;
+      
+      
+        &,
+        span {
+          color: #1E1E1E;
+        }
+      
+        i,
+        span,
+        path,
+        svg {
+          transition: all 0.15s ease-in-out;
+        }
+      
+        &:hover {
+          background-color: darken(#C1DCDC, 8%);
+          border: none;
+        }
+      
+        &:active {
+          background-color: darken(#C1DCDC, 12%);
+          transform: translateY(1px);
+        }
+    }
+
+    .RightSide{
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+
+        .PayButton{
+            display: flex;
+            justify-content: end;
+            
+            button{
+                background: #C1DCDC;
+            }
+        }
+
+    }
+}
+

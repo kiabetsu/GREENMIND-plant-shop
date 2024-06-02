@@ -46,10 +46,6 @@
             }
             
             .Info{
-                .MainInfo{
-
-                }
-
                 .MiniInfo{
                     opacity: 0.5;
                     font-size: 14px;
@@ -58,42 +54,42 @@
         }
     }
 
-    button{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #fff;
-        border-color: #C1DCDC;
+    // button{
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
+    //     background-color: #fff;
+    //     border-color: #C1DCDC;
 
-        text-align: center;
-        cursor: pointer;
-        transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    //     text-align: center;
+    //     cursor: pointer;
+    //     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
         
-        border: 2px solid #C1DCDC;
+    //     border: 2px solid #C1DCDC;
       
       
-        &,
-        span {
-          color: #1E1E1E;
-        }
+    //     &,
+    //     span {
+    //       color: #1E1E1E;
+    //     }
       
-        i,
-        span,
-        path,
-        svg {
-          transition: all 0.15s ease-in-out;
-        }
+    //     i,
+    //     span,
+    //     path,
+    //     svg {
+    //       transition: all 0.15s ease-in-out;
+    //     }
       
-        &:hover {
-          background-color: darken(#C1DCDC, 8%);
-          border: none;
-        }
+    //     &:hover {
+    //       background-color: darken(#C1DCDC, 8%);
+    //       border: none;
+    //     }
       
-        &:active {
-          background-color: darken(#C1DCDC, 12%);
-          transform: translateY(1px);
-        }
-    }
+    //     &:active {
+    //       background-color: darken(#C1DCDC, 12%);
+    //       transform: translateY(1px);
+    //     }
+    // }
 
     .Counters{
         display: flex;

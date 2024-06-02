@@ -1,27 +1,20 @@
 import React from 'react';
 
-function Sort() {
-  const [hidden, setHidden] = React.useState(false);
-  const [sorty, setSorty] = React.useState(0);
-  const sortType = ['popular', 'alphabet', 'price'];
+function Sort({value, onClickSort, hidden, onClickHiddenSort}) {
 
-  const onClickType = (i) => {
-    setSorty(i);
-    setHidden(!hidden);
-  };
-
+  const sortType = [{name:'popular', sortProperty: 'rating'}, {name:'alphabet', sortProperty: 'name'}, {name:'price', sortProperty: 'price'}, {name: 'hight', sortProperty: 'hight'}];
   return (
     <div className="sort">
       <div className="sort-label">
         <b>Sort by:</b>
-        <span onClick={() => setHidden(!hidden)}>{sortType[sorty]}</span>
+        <span onClick={() => onClickHiddenSort(!hidden)}>{value.name}</span>
       </div>
       {hidden && (
         <div className="sort-popup">
           <ul>
             {sortType.map((value, i) => (
-              <li key={i} onClick={() => onClickType(i)} className={i === sorty ? 'active' : ''}>
-                {value}
+              <li key={i} onClick={() => onClickSort(value)} className={i === value ? 'active' : ''}>
+                {value.name}
               </li>
             ))}
           </ul>

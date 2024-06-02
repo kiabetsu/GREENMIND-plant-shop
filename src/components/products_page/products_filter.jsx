@@ -2,11 +2,17 @@ import CollapseCard from '../CollapseCard/CollapseCard';
 import { useState } from 'react';
 import MultiRangeSlider, { ChangeResult } from 'multi-range-slider-react';
 
-function Filter() {
+function Filter({priceMin, priceMax, care, onSetCare, hight, onSetHight}) {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(10000);
   // const [minPrice2, setMinPrice2] = useState(0);
   // const [maxPrice2, setMaxPrice2] = useState(0);
+
+  const updateMas = (category, type) => {
+    let mas = [...category];
+    mas.indexOf(type) == -1 ? mas.push(type) : mas.splice(mas.indexOf(type), 1);
+    return mas;
+  };
 
   const careType = ['Easy', 'Medium', 'Hard'];
   const hightType = [
@@ -79,9 +85,9 @@ function Filter() {
       <CollapseCard style={{ marginTop: '10px' }} title="Care">
         <div className="content">
           {careType.map((value, i) => (
-            <label key={i} htmlFor={value}>
+            <label key={i} htmlFor={value} >
               <div className="type">
-                <input name="ct-cb" id={value} type="checkbox" />
+                <input name="ct-cb" id={value} onClick={() => {onSetCare(updateMas(care, i))}}  type="checkbox" />
                 <span>{value}</span>
               </div>
             </label>
@@ -92,7 +98,7 @@ function Filter() {
       <CollapseCard title="Hight">
         <div className="content">
           {hightType.map((value, i) => (
-            <label key={i} htmlFor={value[0]}>
+            <label key={i} htmlFor={value[0]} onClick={() => onSetHight(updateMas(hight, i))}>
               <div className="type">
                 <input name="ht-cb" id={value[0]} type="checkbox" />
                 {i !== hightType.length - 1 ? (
