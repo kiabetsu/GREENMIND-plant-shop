@@ -21,6 +21,8 @@ function Products_page( {searchValue, setSearchValue}) {
   const [filterPriceMax, setFilterPriceMax] = React.useState(30000)
   const [filterCare, setFilterCare] = React.useState([])
   const [filterHight, setFilterHight] = React.useState([])
+  const [currentPage, setCurrentPage] = React.useState(1)
+
 
 
   const onClickType = (i) => {
@@ -33,10 +35,10 @@ function Products_page( {searchValue, setSearchValue}) {
     setIsLoading(true);
 //FIXME: доделать поиск: ошибка при несовпадении
 //FIXME: доделать фильтрацию: не могу передать массив
-//FIXME: додлетаь фИЛьтрацию: придумать как делать запрос с высотой
-    const search = searchValue ? `&search=${searchValue}` : ``;
+//TODO: додлетаь фИЛьтрацию: придумать как делать запрос с высотой
+    const search = searchValue ? `&name=${searchValue}` : ``;
 
-    fetch(`https://660bbfc3ccda4cbc75dd9c98.mockapi.io/items?${filterCare.length==0 ? `` : `care=${filterCare}`}${search}&sortBy=${sort.sortProperty}`)
+    fetch(`https://660bbfc3ccda4cbc75dd9c98.mockapi.io/items?page=${currentPage}&limit=3&${filterCare.length==0 ? `` : `care=${filterCare}`}${search}&sortBy=${sort.sortProperty}`)
       .then((res) => {
 
         return res.json();
@@ -51,7 +53,7 @@ function Products_page( {searchValue, setSearchValue}) {
     onResize();
 
     return () => window.removeEventListener('resize', onResize);
-  }, [sort, filterCare]);
+  }, [sort, filterCare, searchValue, currentPage]);
 
   return (
     <div className="products_page">
@@ -85,7 +87,7 @@ function Products_page( {searchValue, setSearchValue}) {
             : flowersItems.map((obj) => <FlowerBlock key={obj.id} {...obj} />)}
         </div>
         <div className="content-bot">
-            <Pagination />
+            <Pagination onChangePage={(number) => setCurrentPage(number)}/>
         </div>
       </div>
     </div>
