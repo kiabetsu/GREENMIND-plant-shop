@@ -1,15 +1,15 @@
-import React from 'react';
-import Filter from './products_filter';
-import Sort from '../Sort';
-import FlowerBlock from '../flowerBlock';
-import Skeleton from '../flowerBlockSkeleton';
+import React from "react";
+import Filter from "./products_filter";
+import Sort from "../Sort";
+import FlowerBlock from "../flowerBlock";
+import Skeleton from "../flowerBlockSkeleton";
 
 function Products_page() {
   const [isLoading, setIsLoading] = React.useState(true);
   const [flowersItems, setFlowersItems] = React.useState([]);
 
   React.useEffect(() => {
-    fetch('https://660bbfc3ccda4cbc75dd9c98.mockapi.io/items')
+    fetch("https://660bbfc3ccda4cbc75dd9c98.mockapi.io/items")
       .then((res) => {
         return res.json();
       })

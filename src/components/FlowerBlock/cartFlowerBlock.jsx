@@ -36,7 +36,6 @@ function CartFlowerBlock({ name, image, pot, colorPot, price, care, hight }) {
           <span>177777.00 ₱</span>
         </div>
       </div>
-
     </div>
   );
 }

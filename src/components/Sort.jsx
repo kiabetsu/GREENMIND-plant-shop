@@ -1,19 +1,40 @@
-import React from 'react';
+import React from "react";
 
-function Sort({value, onClickSort, hidden, onClickHiddenSort}) {
+import { useSelector, useDispatch } from "react-redux";
+import { setSort } from "../redux/slices/filterSlice";
 
-  const sortType = [{name:'popular', sortProperty: 'rating'}, {name:'alphabet', sortProperty: 'name'}, {name:'price', sortProperty: 'price'}, {name: 'hight', sortProperty: 'hight'}];
+// function Sort({ value, onClickSort, hidden, onClickHiddenSort }) {
+function Sort() {
+  const [hidden, setHidden] = React.useState(false);
+
+  const sort = useSelector((state) => state.filterSlice.sort);
+  const dispatch = useDispatch();
+
+  const onClickType = (i) => {
+    dispatch(setSort(i));
+    setHidden(!hidden);
+  };
+  const sortType = [
+    { name: "popular", sortProperty: "rating" },
+    { name: "alphabet", sortProperty: "name" },
+    { name: "price", sortProperty: "price" },
+    { name: "hight", sortProperty: "hight" },
+  ];
   return (
     <div className="sort">
       <div className="sort-label">
         <b>Sort by:</b>
-        <span onClick={() => onClickHiddenSort(!hidden)}>{value.name}</span>
+        <span onClick={() => setHidden(!hidden)}>{sort.name}</span>
       </div>
       {hidden && (
         <div className="sort-popup">
           <ul>
             {sortType.map((value, i) => (
-              <li key={i} onClick={() => onClickSort(value)} className={i === value ? 'active' : ''}>
+              <li
+                key={i}
+                onClick={() => onClickType(value)}
+                className={i === value ? "active" : ""}
+              >
                 {value.name}
               </li>
             ))}

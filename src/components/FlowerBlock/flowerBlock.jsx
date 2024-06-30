@@ -1,8 +1,8 @@
-import React from 'react';
-import { Plus } from 'lucide-react';
+import React from "react";
+import { Plus } from "lucide-react";
 
 function FlowerBlock({ name, image, pot, colorPot, price, care, hight }) {
-  const potType = ['With a pot', 'Without a pot'];
+  const potType = ["With a pot", "Without a pot"];
   const [activePot, setActivePot] = React.useState(0);
   const [activeColor, setActiveColor] = React.useState(0);
   return (
@@ -22,7 +22,8 @@ function FlowerBlock({ name, image, pot, colorPot, price, care, hight }) {
               <li
                 key={value}
                 onClick={() => setActivePot(value)}
-                className={activePot === value ? 'active' : ''}>
+                className={activePot === value ? "active" : ""}
+              >
                 {potType[value]}
               </li>
             ))}
@@ -33,7 +34,8 @@ function FlowerBlock({ name, image, pot, colorPot, price, care, hight }) {
                 <li
                   key={i}
                   onClick={() => setActiveColor(i)}
-                  className={activeColor === i ? 'active' : ''}>
+                  className={activeColor === i ? "active" : ""}
+                >
                   {calor}
                 </li>
               ))}

@@ -1,12 +1,20 @@
-import CollapseCard from '../CollapseCard/CollapseCard';
-import { useState } from 'react';
-import MultiRangeSlider, { ChangeResult } from 'multi-range-slider-react';
+import { useState } from "react";
+import MultiRangeSlider, { ChangeResult } from "multi-range-slider-react";
+import { useDispatch, useSelector } from "react-redux";
 
-function Filter({priceMin, priceMax, care, onSetCare, hight, onSetHight}) {
+import { setCare, setHight } from "../../redux/slices/filterSlice";
+import CollapseCard from "../CollapseCard/CollapseCard";
+
+// function Filter({ priceMin, priceMax, care, onSetCare, hight, onSetHight }) {
+function Filter({ priceMin, priceMax, onSetCare }) {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(10000);
   // const [minPrice2, setMinPrice2] = useState(0);
   // const [maxPrice2, setMaxPrice2] = useState(0);
+
+  const care = useSelector((state) => state.filterSlice.care);
+  const hight = useSelector((state) => state.filterSlice.hight);
+  const dispatch = useDispatch();
 
   const updateMas = (category, type) => {
     let mas = [...category];
@@ -14,7 +22,7 @@ function Filter({priceMin, priceMax, care, onSetCare, hight, onSetHight}) {
     return mas;
   };
 
-  const careType = ['Easy', 'Medium', 'Hard'];
+  const careType = ["Easy", "Medium", "Hard"];
   const hightType = [
     [0, 50],
     [50, 90],
@@ -82,12 +90,20 @@ function Filter({priceMin, priceMax, care, onSetCare, hight, onSetHight}) {
         </div>
       </CollapseCard>
 
-      <CollapseCard style={{ marginTop: '10px' }} title="Care">
+      <CollapseCard style={{ marginTop: "10px" }} title="Care">
         <div className="content">
           {careType.map((value, i) => (
-            <label key={i} htmlFor={value} >
+            <label key={i} htmlFor={value}>
               <div className="type">
-                <input name="ct-cb" id={value} onClick={() => {onSetCare(updateMas(care, i))}}  type="checkbox" />
+                <input
+                  name="ct-cb"
+                  id={value}
+                  onClick={() => dispatch(setCare(updateMas(care, i)))}
+                  // onClick={() => {
+                  //   onSetCare(updateMas(care, i));
+                  // }}
+                  type="checkbox"
+                />
                 <span>{value}</span>
               </div>
             </label>
@@ -98,9 +114,14 @@ function Filter({priceMin, priceMax, care, onSetCare, hight, onSetHight}) {
       <CollapseCard title="Hight">
         <div className="content">
           {hightType.map((value, i) => (
-            <label key={i} htmlFor={value[0]} onClick={() => onSetHight(updateMas(hight, i))}>
+            <label key={i} htmlFor={value[0]}>
               <div className="type">
-                <input name="ht-cb" id={value[0]} type="checkbox" />
+                <input
+                  name="ht-cb"
+                  id={value[0]}
+                  onClick={() => dispatch(setHight(updateMas(hight, i)))}
+                  type="checkbox"
+                />
                 {i !== hightType.length - 1 ? (
                   <span>
                     from {value[0]} to {value[1]} sm

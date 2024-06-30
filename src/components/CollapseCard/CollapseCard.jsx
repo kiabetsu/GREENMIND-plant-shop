@@ -1,5 +1,5 @@
-import { ChevronUp } from 'lucide-react';
-import { useState } from 'react';
+import { ChevronUp } from "lucide-react";
+import { useState } from "react";
 
 function CollapseCard(props) {
   const [hidden, setHidden] = useState(false);
@@ -9,7 +9,8 @@ function CollapseCard(props) {
         className="filter--title"
         onClick={() => {
           setHidden(!hidden);
-        }}>
+        }}
+      >
         <span>{props.title}</span>
         {!hidden ? (
           <span className="zeroRotate">
@@ -21,7 +22,7 @@ function CollapseCard(props) {
           </span>
         )}
       </div>
-      {!hidden && <div className={'filter--content'}>{props.children}</div>}
+      {!hidden && <div className={"filter--content"}>{props.children}</div>}
     </div>
   );
 }
