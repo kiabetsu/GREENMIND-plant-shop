@@ -2,6 +2,8 @@ import React from "react";
 import axios from "axios";
 import { SlidersHorizontal } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
+import qs from "qs";
+import { useNavigate } from "react-router-dom";
 // import { setSort } from "../../redux/slices/filterSlice";
 
 import Filter from "../../components/products_page/products_filter";
@@ -10,26 +12,32 @@ import FlowerBlock from "../../components/FlowerBlock/flowerBlock";
 import Skeleton from "../../components/FlowerBlock/flowerBlockSkeleton";
 import Search from "../../components/Search/index";
 import Pagination from "../../components/Pagination/index";
+import NotFoundBlock from "../../components/NotFoundBlock";
 
 function Products_page({ searchValue, setSearchValue }) {
+  const navigate = useNavigate();
+
   const [hiddenFilter, setHiddenFilter] = React.useState(false);
   const [popupFilter, setPopupFilter] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
   const [flowersItems, setFlowersItems] = React.useState([]);
+  const [correctReq, setCorrectReq] = React.useState(true);
 
   // const [hidden, setHidden] = React.useState(false);
   const sort = useSelector((state) => state.filterSlice.sort);
   const care = useSelector((state) => state.filterSlice.care);
   const hight = useSelector((state) => state.filterSlice.hight);
+  const currentPage = useSelector((state) => state.filterSlice.currentPage);
+
   // const [sort, setSort] = React.useState({
   //   name: "popular",
   //   sortProperty: "rating",
   // });
 
-  const [filterPriceMin, setFilterPriceMin] = React.useState(0);
-  const [filterPriceMax, setFilterPriceMax] = React.useState(30000);
+  // const [filterPriceMin, setFilterPriceMin] = React.useState(0);
+  // const [filterPriceMax, setFilterPriceMax] = React.useState(30000);
 
-  const [currentPage, setCurrentPage] = React.useState(1);
+  // const [currentPage, setCurrentPage] = React.useState(1);
 
   // const onClickType = (i) => {
   //   dispatch(setSort(i));
@@ -39,7 +47,6 @@ function Products_page({ searchValue, setSearchValue }) {
   // ${filterCare == [] ? `care=[0, 1, 2]` : `care=${filterCare}`}
   React.useEffect(() => {
     setIsLoading(true);
-    //FIXME: доделать поиск: ошибка при несовпадении
     //TODO: сделать закрытие popup при нажатии в любую точку экрана
 
     const search = searchValue ? `&name=${searchValue}` : ``;
@@ -53,18 +60,36 @@ function Products_page({ searchValue, setSearchValue }) {
         }`
       )
       .then((res) => {
-        console.log(res);
+        setCorrectReq(true);
+        console.log(correctReq);
         setFlowersItems(res.data);
         setIsLoading(false);
+      })
+      .catch((e) => {
+        if (e.response.status === 404) {
+          setCorrectReq(false);
+        }
       });
 
     window.scrollTo(0, 0);
     const onResize = () =>
-      setHiddenFilter(window.innerWidth >= 1200 ? false : true);
+      setHiddenFilter(window.innerWidth >= 1350 ? false : true);
     window.addEventListener("resize", onResize);
     onResize();
 
     return () => window.removeEventListener("resize", onResize);
+  }, [sort, care, hight, searchValue, currentPage]);
+
+  React.useEffect(() => {
+    const queryString = qs.stringify({
+      sort: sort.sortProperty,
+      care,
+      hight,
+      currentPage,
+    });
+
+    console.log(queryString);
+    navigate(`?${queryString}`);
   }, [sort, care, hight, searchValue, currentPage]);
 
   return (
@@ -112,13 +137,21 @@ function Products_page({ searchValue, setSearchValue }) {
           // onClickHiddenSort={() => setHidden(!hidden)}
           />
         </div>
-        <div className="content-items">
-          {isLoading
-            ? [...new Array(12)].map((_, i) => <Skeleton key={i} />)
-            : flowersItems.map((obj) => <FlowerBlock key={obj.id} {...obj} />)}
-        </div>
+        {correctReq == true ? (
+          <div className="content-items">
+            {isLoading
+              ? [...new Array(12)].map((_, i) => <Skeleton key={i} />)
+              : flowersItems.map((obj) => (
+                  <FlowerBlock key={obj.id} {...obj} />
+                ))}
+          </div>
+        ) : (
+          <NotFoundBlock />
+        )}
         <div className="content-bot">
-          <Pagination onChangePage={(number) => setCurrentPage(number)} />
+          <Pagination
+          // onChangePage={(number) => onChangePage(number)}
+          />
         </div>
       </div>
     </div>

@@ -13,6 +13,7 @@
     "lucide-react": "^0.360.0",
     "match-sorter": "^6.3.4",
     "multi-range-slider-react": "^2.0.7",
+    "qs": "^6.12.2",
     "react": "^18.2.0",
     "react-content-loader": "^7.0.0",
     "react-dom": "^18.2.0",
