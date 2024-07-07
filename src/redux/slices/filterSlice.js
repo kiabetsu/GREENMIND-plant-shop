@@ -31,9 +31,11 @@ export const filterSlice = createSlice({
     },
     setFilters: (state, action) => {
       state.sort = action.payload.sort;
-      state.currentPage = action.payload.currentPage;
-      state.hight = action.payload.hight;
-      state.care = action.payload.care;
+      state.currentPage = Number(action.payload.currentPage);
+      if(action.payload.hight && action.payload.hight.length !== 0)
+        state.hight = Array(action.payload.hight);
+      if(action.payload.care && action.payload.care.length !== 0)
+        state.care = Array(action.payload.care);
     },
     decrement: (state) => {
       state.value -= 1;

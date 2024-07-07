@@ -1,21 +1,24 @@
-import React from "react";
-import axios from "axios";
-import { SlidersHorizontal } from "lucide-react";
-import { useSelector, useDispatch } from "react-redux";
-import qs from "qs";
-import { useNavigate } from "react-router-dom";
-// import { setSort } from "../../redux/slices/filterSlice";
+import React, { useRef } from 'react';
+import axios from 'axios';
+import { SlidersHorizontal } from 'lucide-react';
+import { useSelector, useDispatch } from 'react-redux';
+import qs from 'qs';
+import { useNavigate } from 'react-router-dom';
 
-import Filter from "../../components/products_page/products_filter";
-import Sort from "../../components/Sort";
-import FlowerBlock from "../../components/FlowerBlock/flowerBlock";
-import Skeleton from "../../components/FlowerBlock/flowerBlockSkeleton";
-import Search from "../../components/Search/index";
-import Pagination from "../../components/Pagination/index";
-import NotFoundBlock from "../../components/NotFoundBlock";
+import Filter from '../../components/products_page/products_filter';
+import Sort from '../../components/Sort';
+import FlowerBlock from '../../components/FlowerBlock/flowerBlock';
+import Skeleton from '../../components/FlowerBlock/flowerBlockSkeleton';
+import Search from '../../components/Search/index';
+import Pagination from '../../components/Pagination/index';
+import NotFoundBlock from '../../components/NotFoundBlock';
+import { setFilters } from '../../redux/slices/filterSlice';
 
 function Products_page({ searchValue, setSearchValue }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isSearch = React.useRef(false);
+  const isMounted = React.useRef(false);
 
   const [hiddenFilter, setHiddenFilter] = React.useState(false);
   const [popupFilter, setPopupFilter] = React.useState(false);
@@ -27,7 +30,16 @@ function Products_page({ searchValue, setSearchValue }) {
   const sort = useSelector((state) => state.filterSlice.sort);
   const care = useSelector((state) => state.filterSlice.care);
   const hight = useSelector((state) => state.filterSlice.hight);
-  const currentPage = useSelector((state) => state.filterSlice.currentPage);
+  const currentPage = useSelector(
+    (state) => state.filterSlice.currentPage,
+  );
+
+  const sortType = [
+    { name: 'popular', sortProperty: 'rating' },
+    { name: 'alphabet', sortProperty: 'name' },
+    { name: 'price', sortProperty: 'price' },
+    { name: 'hight', sortProperty: 'hight' },
+  ];
 
   // const [sort, setSort] = React.useState({
   //   name: "popular",
@@ -44,24 +56,21 @@ function Products_page({ searchValue, setSearchValue }) {
   //   setHidden(!hidden);
   // };
 
-  // ${filterCare == [] ? `care=[0, 1, 2]` : `care=${filterCare}`}
-  React.useEffect(() => {
+  const fetchPlants = () => {
     setIsLoading(true);
-    //TODO: сделать закрытие popup при нажатии в любую точку экрана
 
     const search = searchValue ? `&name=${searchValue}` : ``;
-
+    console.log(care, care === undefined, care.length);
     axios
       .get(
         `https://660bbfc3ccda4cbc75dd9c98.mockapi.io/items?page=${currentPage}&limit=12&${
-          care.length == 0 ? `` : `care=[${care}]`
-        }&${hight.length == 0 ? `` : `hightType=[${hight}]`}${search}&sortBy=${
-          sort.sortProperty
-        }`
+          care.length === 0 ? '' : `care=[${care}]`
+        }&${
+          hight.length === 0 ? '' : `hightType=[${hight}]`
+        }${search}&sortBy=${sort.sortProperty}`,
       )
       .then((res) => {
         setCorrectReq(true);
-        console.log(correctReq);
         setFlowersItems(res.data);
         setIsLoading(false);
       })
@@ -70,26 +79,52 @@ function Products_page({ searchValue, setSearchValue }) {
           setCorrectReq(false);
         }
       });
+  };
+
+  React.useEffect(() => {
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
+
+      const sort = sortType.find(
+        (obj) => obj.sortProperty === params.sort,
+      );
+      console.log(params);
+      dispatch(setFilters({ ...params, sort }));
+
+      isSearch.current = true;
+    }
+  }, []);
+  //TODO: сделать закрытие popup при нажатии в любую точку экрана
+
+  React.useEffect(() => {
+    if (!isSearch.current) {
+      fetchPlants();
+    }
+
+    isSearch.current = false;
 
     window.scrollTo(0, 0);
     const onResize = () =>
       setHiddenFilter(window.innerWidth >= 1350 ? false : true);
-    window.addEventListener("resize", onResize);
+    window.addEventListener('resize', onResize);
     onResize();
 
-    return () => window.removeEventListener("resize", onResize);
+    return () => window.removeEventListener('resize', onResize);
   }, [sort, care, hight, searchValue, currentPage]);
 
   React.useEffect(() => {
-    const queryString = qs.stringify({
-      sort: sort.sortProperty,
-      care,
-      hight,
-      currentPage,
-    });
+    if (isMounted.current) {
+      const queryString = qs.stringify({
+        sort: sort.sortProperty,
+        care,
+        hight,
+        currentPage,
+      });
 
-    console.log(queryString);
-    navigate(`?${queryString}`);
+      navigate(`?${queryString}`);
+    }
+
+    isMounted.current = true;
   }, [sort, care, hight, searchValue, currentPage]);
 
   return (
@@ -114,9 +149,8 @@ function Products_page({ searchValue, setSearchValue }) {
             <div className="filter-button-popup">
               <button
                 onClick={() => setPopupFilter(!popupFilter)}
-                className="button button--outline button--add"
-              >
-                <span>Filter</span> &nbsp;{" "}
+                className="button button--outline button--add">
+                <span>Filter</span> &nbsp;{' '}
                 <SlidersHorizontal size={18} strokeWidth={2} />
               </button>
               {popupFilter && (
@@ -137,7 +171,7 @@ function Products_page({ searchValue, setSearchValue }) {
           // onClickHiddenSort={() => setHidden(!hidden)}
           />
         </div>
-        {correctReq == true ? (
+        {correctReq === true ? (
           <div className="content-items">
             {isLoading
               ? [...new Array(12)].map((_, i) => <Skeleton key={i} />)
