@@ -1,24 +1,33 @@
-import React from "react";
-import styles from "./cart.module.scss";
+import React from 'react';
+import styles from './cart.module.scss';
 // import "../../scss/components/_button.scss"
 
-import { X, Plus, Minus } from "lucide-react";
+import { X, Plus, Minus } from 'lucide-react';
 
-function CartFlowerBlock({ name, image, pot, colorPot, price, care, hight }) {
+function CartFlowerBlock({
+  name,
+  image,
+  pot,
+  colorPot,
+  price,
+  care,
+  hight,
+  count,
+}) {
+  const careType = ['easy', 'medium', 'hard'];
   return (
     <div className={styles.CartFlowerBlock}>
       <div className={styles.Position}>
         <a href="">
           <div className={styles.Image}>
-            <img
-              src="https://tropichouse.ru/upload/iblock/d58/4thk96fdv6auuo0z5j9hmmvmfsrv6dls.jpg"
-              alt="plant img"
-            />
+            <img src={image} alt="plant img" />
           </div>
           <div className={styles.Info}>
-            <span className={styles.MainInfo}>Dracaena Lemon Lime</span>
+            <span className={styles.MainInfo}>{name}</span>
             <br />
-            <span className={styles.MiniInfo}>Easy care, 110 sm</span>
+            <span className={styles.MiniInfo}>
+              {careType[care]} care, {hight} sm
+            </span>
           </div>
         </a>
       </div>
@@ -27,13 +36,13 @@ function CartFlowerBlock({ name, image, pot, colorPot, price, care, hight }) {
           <button>
             <Minus />
           </button>
-          <span>2</span>
+          <span>{count}</span>
           <button>
             <Plus />
           </button>
         </div>
         <div className={styles.PriceCounter}>
-          <span>177777.00 ₱</span>
+          <span>{price}.00 ₱</span>
         </div>
       </div>
     </div>

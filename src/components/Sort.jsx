@@ -1,7 +1,7 @@
-import React from "react";
-
-import { useSelector, useDispatch } from "react-redux";
-import { setSort } from "../redux/slices/filterSlice";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSort } from '../redux/slices/filterSlice';
+import { click } from '@testing-library/user-event/dist/click';
 
 // function Sort({ value, onClickSort, hidden, onClickHiddenSort }) {
 function Sort() {
@@ -9,19 +9,40 @@ function Sort() {
 
   const sort = useSelector((state) => state.filterSlice.sort);
   const dispatch = useDispatch();
+  const sortRef = React.useRef();
 
   const onClickType = (i) => {
     dispatch(setSort(i));
     setHidden(!hidden);
   };
   const sortType = [
-    { name: "popular", sortProperty: "rating" },
-    { name: "alphabet", sortProperty: "name" },
-    { name: "price", sortProperty: "price" },
-    { name: "hight", sortProperty: "hight" },
+    { name: 'popular', sortProperty: 'rating' },
+    { name: 'alphabet', sortProperty: 'name' },
+    { name: 'price', sortProperty: 'price' },
+    { name: 'hight', sortProperty: 'hight' },
   ];
+
+  // React.useEffect(() => {
+  //   document.addEventListener('click', (event) => {
+  //     console.log(event);
+  //   });
+  // }, []);
+  React.useEffect(() => {
+    const handleClick = (e) => {
+      if (hidden === false) return;
+      if (!sortRef.current.contains(e.target)) {
+        setHidden(false);
+      }
+    };
+
+    document.addEventListener('click', handleClick);
+    return () => {
+      document.removeEventListener('click', handleClick);
+    };
+  }, [hidden]);
+
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort-label">
         <b>Sort by:</b>
         <span onClick={() => setHidden(!hidden)}>{sort.name}</span>
@@ -33,8 +54,7 @@ function Sort() {
               <li
                 key={i}
                 onClick={() => onClickType(value)}
-                className={i === value ? "active" : ""}
-              >
+                className={i === value ? 'active' : ''}>
                 {value.name}
               </li>
             ))}

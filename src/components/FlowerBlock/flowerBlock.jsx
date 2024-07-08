@@ -1,10 +1,44 @@
-import React from "react";
-import { Plus } from "lucide-react";
+import React from 'react';
+import { Plus } from 'lucide-react';
+import { useDispatch } from 'react-redux';
+import { addItem } from '../../redux/slices/cartSlice';
 
-function FlowerBlock({ name, image, pot, colorPot, price, care, hight }) {
-  const potType = ["With a pot", "Without a pot"];
+import { useSelector } from 'react-redux';
+
+function FlowerBlock({
+  id,
+  name,
+  image,
+  pot,
+  colorPot,
+  price,
+  care,
+  hight,
+}) {
+  const potType = ['With a pot', 'Without a pot'];
   const [activePot, setActivePot] = React.useState(0);
   const [activeColor, setActiveColor] = React.useState(0);
+  const dispatch = useDispatch();
+  const cartItem = useSelector((state) =>
+    state.cartSlice.items.find((obj) => obj.id === id),
+  );
+
+  const addCount = cartItem ? cartItem.count : 0;
+
+  const onClickAdd = () => {
+    const item = {
+      id,
+      name,
+      image,
+      pot: activePot,
+      colorPot: activeColor,
+      price,
+      care,
+      hight,
+    };
+    dispatch(addItem(item));
+  };
+
   return (
     <div className="flowerBlock">
       <div className="flowerImage">
@@ -22,8 +56,7 @@ function FlowerBlock({ name, image, pot, colorPot, price, care, hight }) {
               <li
                 key={value}
                 onClick={() => setActivePot(value)}
-                className={activePot === value ? "active" : ""}
-              >
+                className={activePot === value ? 'active' : ''}>
                 {potType[value]}
               </li>
             ))}
@@ -34,8 +67,7 @@ function FlowerBlock({ name, image, pot, colorPot, price, care, hight }) {
                 <li
                   key={i}
                   onClick={() => setActiveColor(i)}
-                  className={activeColor === i ? "active" : ""}
-                >
+                  className={activeColor === i ? 'active' : ''}>
                   {calor}
                 </li>
               ))}
@@ -44,12 +76,19 @@ function FlowerBlock({ name, image, pot, colorPot, price, care, hight }) {
       </div>
       <div className="flowerBlock__bottom">
         <div className="flowerBlock__bottom__info">
-          <div className="flowerBlock__bottom__hight">hight {hight} sm</div>
-          <div className="flowerBlock__bottom__price">₱ {price}.00</div>
+          <div className="flowerBlock__bottom__hight">
+            hight {hight} sm
+          </div>
+          <div className="flowerBlock__bottom__price">
+            ₱ {price}.00
+          </div>
         </div>
-        <button className="button button--outline button--add">
+        <button
+          onClick={onClickAdd}
+          className="button button--outline button--add">
           <Plus size={18} strokeWidth={2} />
-          &nbsp; <span>Add</span>
+          &nbsp; <span>Add</span> &nbsp;{' '}
+          {addCount > 0 ? <i>{addCount}</i> : ''}
         </button>
       </div>
     </div>
