@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { SatelliteDishIcon } from "lucide-react";
 
 const initialState = {
   fullPrice: 0,
@@ -10,6 +11,7 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addItem(state, action){
+      console.log(action)
       const findItem = state.items.find(obj => obj.id === action.payload.id);
       if (findItem) {
         findItem.count++;
@@ -19,10 +21,15 @@ export const cartSlice = createSlice({
       state.fullPrice = state.items.reduce((sum, obj) => {return obj.price * obj.count + sum}, 0)
     },
     removeItem(state, action){
-      state.items = state.items.filter(obj => obj.id !==action.payload);
+      const findItem = state.items.find(obj => obj.id === action.payload.id);
+      findItem.count --;
+      if (findItem.count<1){
+        state.items = state.items.filter(obj => obj.id !== action.payload.id);
+      }
     },
     clearItems(state){
       state.items = [];
+      state.fullPrice = 0;
     },
 
   },

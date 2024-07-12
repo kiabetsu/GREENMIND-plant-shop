@@ -13,6 +13,11 @@ function Cart() {
     (state) => state.cartSlice,
   );
   const dispatch = useDispatch();
+
+  const onCLickClear = () => {
+    dispatch(clearItems());
+  };
+
   return (
     <div className="content">
       <div className={styles.TopContent}>
@@ -21,7 +26,7 @@ function Cart() {
             <ShoppingCart size={18} strokeWidth={2} /> Cart
           </span>
         </div>
-        <div className={styles.TrashCan}>
+        <div onClick={onCLickClear} className={styles.TrashCan}>
           <span>
             <Trash2 size={14} strokeWidth={2} /> empty trash
           </span>
@@ -34,7 +39,6 @@ function Cart() {
           {items.map((obj, i) => (
             <CartFlowerBlock key={i} {...obj} />
           ))}
-          <CartFlowerBlock />
         </div>
       )}
       <div className={styles.BotContent}>

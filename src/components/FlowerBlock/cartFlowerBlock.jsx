@@ -3,8 +3,11 @@ import styles from './cart.module.scss';
 // import "../../scss/components/_button.scss"
 
 import { X, Plus, Minus } from 'lucide-react';
+import { addItem, removeItem } from '../../redux/slices/cartSlice';
+import { useDispatch } from 'react-redux';
 
 function CartFlowerBlock({
+  id,
   name,
   image,
   pot,
@@ -15,6 +18,16 @@ function CartFlowerBlock({
   count,
 }) {
   const careType = ['easy', 'medium', 'hard'];
+
+  const dispatch = useDispatch();
+  const onClickPlus = () => {
+    dispatch(addItem({ id }));
+  };
+
+  const onClickMinus = () => {
+    dispatch(removeItem({ id }));
+  };
+
   return (
     <div className={styles.CartFlowerBlock}>
       <div className={styles.Position}>
@@ -34,11 +47,11 @@ function CartFlowerBlock({
       <div className={styles.Counters}>
         <div className={styles.PositionCounter}>
           <button>
-            <Minus />
+            <Minus onClick={onClickMinus} />
           </button>
           <span>{count}</span>
           <button>
-            <Plus />
+            <Plus onClick={onClickPlus} />
           </button>
         </div>
         <div className={styles.PriceCounter}>

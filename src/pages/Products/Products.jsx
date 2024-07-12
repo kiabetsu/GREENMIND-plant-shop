@@ -60,7 +60,6 @@ function Products_page({ searchValue, setSearchValue }) {
     setIsLoading(true);
 
     const search = searchValue ? `&name=${searchValue}` : ``;
-    console.log(care, care === undefined, care.length);
     axios
       .get(
         `https://660bbfc3ccda4cbc75dd9c98.mockapi.io/items?page=${currentPage}&limit=12&${
@@ -88,13 +87,11 @@ function Products_page({ searchValue, setSearchValue }) {
       const sort = sortType.find(
         (obj) => obj.sortProperty === params.sort,
       );
-      console.log(params);
       dispatch(setFilters({ ...params, sort }));
 
       isSearch.current = true;
     }
   }, []);
-  //TODO: сделать закрытие popup при нажатии в любую точку экрана
 
   React.useEffect(() => {
     if (!isSearch.current) {
