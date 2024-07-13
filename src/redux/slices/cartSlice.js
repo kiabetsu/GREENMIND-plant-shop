@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { SatelliteDishIcon } from "lucide-react";
 
 const initialState = {
   fullPrice: 0,

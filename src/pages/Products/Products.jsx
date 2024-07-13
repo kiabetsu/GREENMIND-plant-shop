@@ -13,6 +13,7 @@ import Search from '../../components/Search/index';
 import Pagination from '../../components/Pagination/index';
 import NotFoundBlock from '../../components/NotFoundBlock';
 import { setFilters } from '../../redux/slices/filterSlice';
+import { fetchPlants } from '../../redux/slices/plantSlice';
 
 function Products_page({ searchValue, setSearchValue }) {
   const navigate = useNavigate();
@@ -26,13 +27,10 @@ function Products_page({ searchValue, setSearchValue }) {
   const [flowersItems, setFlowersItems] = React.useState([]);
   const [correctReq, setCorrectReq] = React.useState(true);
 
-  // const [hidden, setHidden] = React.useState(false);
-  const sort = useSelector((state) => state.filterSlice.sort);
-  const care = useSelector((state) => state.filterSlice.care);
-  const hight = useSelector((state) => state.filterSlice.hight);
-  const currentPage = useSelector(
-    (state) => state.filterSlice.currentPage,
+  const { search, sort, care, hight, currentPage } = useSelector(
+    (state) => state.filterSlice,
   );
+  const { status, items } = useSelector((state) => state.plantSlice);
 
   const sortType = [
     { name: 'popular', sortProperty: 'rating' },
@@ -40,45 +38,6 @@ function Products_page({ searchValue, setSearchValue }) {
     { name: 'price', sortProperty: 'price' },
     { name: 'hight', sortProperty: 'hight' },
   ];
-
-  // const [sort, setSort] = React.useState({
-  //   name: "popular",
-  //   sortProperty: "rating",
-  // });
-
-  // const [filterPriceMin, setFilterPriceMin] = React.useState(0);
-  // const [filterPriceMax, setFilterPriceMax] = React.useState(30000);
-
-  // const [currentPage, setCurrentPage] = React.useState(1);
-
-  // const onClickType = (i) => {
-  //   dispatch(setSort(i));
-  //   setHidden(!hidden);
-  // };
-
-  const fetchPlants = () => {
-    setIsLoading(true);
-
-    const search = searchValue ? `&name=${searchValue}` : ``;
-    axios
-      .get(
-        `https://660bbfc3ccda4cbc75dd9c98.mockapi.io/items?page=${currentPage}&limit=12&${
-          care.length === 0 ? '' : `care=[${care}]`
-        }&${
-          hight.length === 0 ? '' : `hightType=[${hight}]`
-        }${search}&sortBy=${sort.sortProperty}`,
-      )
-      .then((res) => {
-        setCorrectReq(true);
-        setFlowersItems(res.data);
-        setIsLoading(false);
-      })
-      .catch((e) => {
-        if (e.response.status === 404) {
-          setCorrectReq(false);
-        }
-      });
-  };
 
   React.useEffect(() => {
     if (window.location.search) {
@@ -95,7 +54,9 @@ function Products_page({ searchValue, setSearchValue }) {
 
   React.useEffect(() => {
     if (!isSearch.current) {
-      fetchPlants();
+      dispatch(
+        fetchPlants({ currentPage, care, hight, search, sort }),
+      );
     }
 
     isSearch.current = false;
@@ -107,7 +68,7 @@ function Products_page({ searchValue, setSearchValue }) {
     onResize();
 
     return () => window.removeEventListener('resize', onResize);
-  }, [sort, care, hight, searchValue, currentPage]);
+  }, [sort, care, hight, search, currentPage]);
 
   React.useEffect(() => {
     if (isMounted.current) {
@@ -122,7 +83,7 @@ function Products_page({ searchValue, setSearchValue }) {
     }
 
     isMounted.current = true;
-  }, [sort, care, hight, searchValue, currentPage]);
+  }, [sort, care, hight, search, currentPage]);
 
   return (
     <div className="products_page">
@@ -157,10 +118,7 @@ function Products_page({ searchValue, setSearchValue }) {
               )}
             </div>
           )}
-          <Search
-            searchValue={searchValue}
-            setSearchValue={(value) => setSearchValue(value)}
-          />
+          <Search />
           <Sort
           // value={sort}
           // onClickSort={(i) => onClickType(i)}
@@ -170,9 +128,9 @@ function Products_page({ searchValue, setSearchValue }) {
         </div>
         {correctReq === true ? (
           <div className="content-items">
-            {isLoading
+            {status === 'loading'
               ? [...new Array(12)].map((_, i) => <Skeleton key={i} />)
-              : flowersItems.map((obj) => (
+              : items.map((obj) => (
                   <FlowerBlock key={obj.id} {...obj} />
                 ))}
           </div>

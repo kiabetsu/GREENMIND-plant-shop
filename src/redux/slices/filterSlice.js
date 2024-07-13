@@ -6,7 +6,7 @@ const initialState = {
   care: [],
   hight: [],
   currentPage: 1,
-
+  search: '',
   sort: {
     name: "popular",
     sortProperty: "rating",
@@ -28,6 +28,9 @@ export const filterSlice = createSlice({
     },
     setCurrentPage: (state, action) => {
       state.currentPage = action.payload;
+    },
+    setSearch: (state, action) => {
+      state.search = action.payload;
     },
     setFilters: (state, action) => {
       state.sort = action.payload.sort;
@@ -55,6 +58,7 @@ export const {
   decrement,
   incrementByAmount,
   setFilters,
+  setSearch,
 } = filterSlice.actions;
 
 export default filterSlice.reducer;

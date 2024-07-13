@@ -11,8 +11,6 @@ import Cart from "./pages/Cart/index.jsx";
 import React from "react";
 
 function App() {
-  const [searchValue, setSearchValue] = React.useState();
-  console.log(searchValue);
 
   return (
     <div className="App">
@@ -21,19 +19,13 @@ function App() {
         <Route
           path="/"
           element={
-            <Home
-              searchValue={searchValue}
-              setSearchValue={(value) => setSearchValue(value)}
-            />
+            <Home />
           }
         />
         <Route
           path="/products"
           element={
-            <Products
-              searchValue={searchValue}
-              setSearchValue={setSearchValue}
-            />
+            <Products />
           }
         />
         <Route path="/cart" element={<Cart />} />
