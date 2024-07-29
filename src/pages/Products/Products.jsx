@@ -24,7 +24,6 @@ function Products_page() {
   const dispatch = useDispatch();
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
-  const isMountedCart = React.useRef(false);
   // const filterRef = React.useRef();
 
   // const [hiddenFilter, setHiddenFilter] = React.useState(false);
@@ -40,7 +39,6 @@ function Products_page() {
     popupFilter,
   } = useSelector((state) => state.filterSlice);
   const { status, items } = useSelector((state) => state.plantSlice);
-  const cartItems = useSelector((state) => state.cartSlice.items);
 
   const sortType = [
     { name: 'popular', sortProperty: 'rating' },
@@ -48,14 +46,6 @@ function Products_page() {
     { name: 'price', sortProperty: 'price' },
     { name: 'hight', sortProperty: 'hight' },
   ];
-
-  React.useEffect(() => {
-    if (isMountedCart.current) {
-      const json = JSON.stringify(cartItems);
-      localStorage.setItem('cart', json);
-    }
-    isMountedCart.current = true;
-  }, [cartItems]);
 
   React.useEffect(() => {
     if (window.location.search) {

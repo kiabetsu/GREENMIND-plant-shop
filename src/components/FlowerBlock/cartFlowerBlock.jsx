@@ -55,7 +55,7 @@ function CartFlowerBlock({
           </button>
         </div>
         <div className={styles.PriceCounter}>
-          <span>{price}.00 ₱</span>
+          <span>{price * count}.00 ₱</span>
         </div>
       </div>
     </div>

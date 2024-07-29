@@ -1,11 +1,23 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { User, ShoppingCart, Menu } from "lucide-react";
+import { User, ShoppingCart, Menu } from 'lucide-react';
 
 function Header() {
   const [activePage, setActivePage] = React.useState(0);
-  const pageList = ["Home", "Products", "Contacts"];
+  const pageList = ['Home', 'Products', 'Contacts'];
+
+  const isMounted = React.useRef(false);
+  const { items } = useSelector((state) => state.cartSlice);
+
+  React.useEffect(() => {
+    if (isMounted.current) {
+      const json = JSON.stringify(items);
+      localStorage.setItem('cart', json);
+    }
+    isMounted.current = true;
+  }, [items]);
 
   return (
     <div className="header">
@@ -19,9 +31,8 @@ function Header() {
               <li
                 key={i}
                 onClick={() => setActivePage(i)}
-                className={i === activePage ? "active" : ""}
-              >
-                {value === "Home" ? (
+                className={i === activePage ? 'active' : ''}>
+                {value === 'Home' ? (
                   <Link to="/">{value}</Link>
                 ) : (
                   <Link to={value}>{value}</Link>
