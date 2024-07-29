@@ -12,25 +12,35 @@ import Skeleton from '../../components/FlowerBlock/flowerBlockSkeleton';
 import Search from '../../components/Search/index';
 import Pagination from '../../components/Pagination/index';
 import NotFoundBlock from '../../components/NotFoundBlock';
-import { setFilters } from '../../redux/slices/filterSlice';
+import {
+  setFilters,
+  setHiddenFilter,
+  setPopupFilter,
+} from '../../redux/slices/filterSlice';
 import { fetchPlants } from '../../redux/slices/plantSlice';
 
-function Products_page({ searchValue, setSearchValue }) {
+function Products_page() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
+  const isMountedCart = React.useRef(false);
+  // const filterRef = React.useRef();
 
-  const [hiddenFilter, setHiddenFilter] = React.useState(false);
-  const [popupFilter, setPopupFilter] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [flowersItems, setFlowersItems] = React.useState([]);
-  const [correctReq, setCorrectReq] = React.useState(true);
+  // const [hiddenFilter, setHiddenFilter] = React.useState(false);
+  // const [popupFilter, setPopupFilter] = React.useState(false);
 
-  const { search, sort, care, hight, currentPage } = useSelector(
-    (state) => state.filterSlice,
-  );
+  const {
+    search,
+    sort,
+    care,
+    hight,
+    currentPage,
+    hiddenFilter,
+    popupFilter,
+  } = useSelector((state) => state.filterSlice);
   const { status, items } = useSelector((state) => state.plantSlice);
+  const cartItems = useSelector((state) => state.cartSlice.items);
 
   const sortType = [
     { name: 'popular', sortProperty: 'rating' },
@@ -38,6 +48,14 @@ function Products_page({ searchValue, setSearchValue }) {
     { name: 'price', sortProperty: 'price' },
     { name: 'hight', sortProperty: 'hight' },
   ];
+
+  React.useEffect(() => {
+    if (isMountedCart.current) {
+      const json = JSON.stringify(cartItems);
+      localStorage.setItem('cart', json);
+    }
+    isMountedCart.current = true;
+  }, [cartItems]);
 
   React.useEffect(() => {
     if (window.location.search) {
@@ -54,16 +72,16 @@ function Products_page({ searchValue, setSearchValue }) {
 
   React.useEffect(() => {
     if (!isSearch.current) {
-      dispatch(
-        fetchPlants({ currentPage, care, hight, search, sort }),
-      );
+      dispatch(fetchPlants());
     }
 
     isSearch.current = false;
 
     window.scrollTo(0, 0);
     const onResize = () =>
-      setHiddenFilter(window.innerWidth >= 1350 ? false : true);
+      dispatch(
+        setHiddenFilter(window.innerWidth >= 1350 ? false : true),
+      );
     window.addEventListener('resize', onResize);
     onResize();
 
@@ -85,20 +103,24 @@ function Products_page({ searchValue, setSearchValue }) {
     isMounted.current = true;
   }, [sort, care, hight, search, currentPage]);
 
+  // React.useEffect(() => {
+  //   const handleClick = (e) => {
+  //     if (popupFilter === false) return;
+  //     if (!filterRef.current.contains(e.target)) {
+  //       dispatch(setPopupFilter(true));
+  //     }
+  //   };
+  //   document.addEventListener('click', handleClick);
+  //   return () => {
+  //     document.removeEventListener('click', handleClick);
+  //   };
+  // }, [popupFilter]);
+
   return (
     <div className="products_page">
       {!hiddenFilter && (
         <div className="filter">
-          <Filter
-          // priceMin={filterPriceMin}
-          // priceMax={filterPriceMax}
-          // care={filterCare}
-          // onSetCare={(mas) => {
-          //   setFilterCare(mas);
-          // }}
-          // hight={filterHight}
-          // onSetHight={(mas) => setFilterHight(mas)}
-          />
+          <Filter />
         </div>
       )}
       <div className="products">
@@ -106,7 +128,7 @@ function Products_page({ searchValue, setSearchValue }) {
           {hiddenFilter && (
             <div className="filter-button-popup">
               <button
-                onClick={() => setPopupFilter(!popupFilter)}
+                onClick={() => dispatch(setPopupFilter(!popupFilter))}
                 className="button button--outline button--add">
                 <span>Filter</span> &nbsp;{' '}
                 <SlidersHorizontal size={18} strokeWidth={2} />
@@ -119,14 +141,9 @@ function Products_page({ searchValue, setSearchValue }) {
             </div>
           )}
           <Search />
-          <Sort
-          // value={sort}
-          // onClickSort={(i) => onClickType(i)}
-          // hidden={hidden}
-          // onClickHiddenSort={() => setHidden(!hidden)}
-          />
+          <Sort />
         </div>
-        {correctReq === true ? (
+        {status !== 'error' ? (
           <div className="content-items">
             {status === 'loading'
               ? [...new Array(12)].map((_, i) => <Skeleton key={i} />)
@@ -138,9 +155,7 @@ function Products_page({ searchValue, setSearchValue }) {
           <NotFoundBlock />
         )}
         <div className="content-bot">
-          <Pagination
-          // onChangePage={(number) => onChangePage(number)}
-          />
+          <Pagination />
         </div>
       </div>
     </div>

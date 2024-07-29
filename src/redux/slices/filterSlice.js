@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  filterPriceMin: 0,
-  filterPriceMax: 30000,
+  minPrice: 0,
+  maxPrice: 30000,
+  minPrice2: 0,
+  maxPrice2: 30000,
   care: [],
   hight: [],
   currentPage: 1,
@@ -11,12 +13,27 @@ const initialState = {
     name: "popular",
     sortProperty: "rating",
   },
+  hiddenFilter: false,
+  popupFilter: false,
+  hiddenSort: true,
 };
 
 export const filterSlice = createSlice({
   name: "filter",
   initialState,
   reducers: {
+    setMinPrice: (state, action) => {
+      state.minPrice = action.payload;
+    },    
+    setMaxPrice: (state, action) => {
+      state.maxPrice = action.payload;
+    },
+    setMinPrice2: (state, action) => {
+      state.minPrice2 = action.payload;
+    },    
+    setMaxPrice2: (state, action) => {
+      state.maxPrice2 = action.payload;
+    },
     setSort: (state, action) => {
       state.sort = action.payload;
     },
@@ -31,6 +48,15 @@ export const filterSlice = createSlice({
     },
     setSearch: (state, action) => {
       state.search = action.payload;
+    },
+    setHiddenFilter: (state, action) => {
+      state.hiddenFilter = action.payload;
+    },
+    setPopupFilter: (state, action) => {
+      state.popupFilter = action.payload;
+    },
+    setHiddenSort: (state, action) => {
+      state.hiddenSort = action.payload;
     },
     setFilters: (state, action) => {
       state.sort = action.payload.sort;
@@ -51,6 +77,10 @@ export const filterSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
+  setMinPrice,
+  setMaxPrice,
+  setMinPrice2,
+  setMaxPrice2,
   setSort,
   setCare,
   setHight,
@@ -59,6 +89,9 @@ export const {
   incrementByAmount,
   setFilters,
   setSearch,
+  setHiddenFilter,
+  setPopupFilter,
+  setHiddenSort,
 } = filterSlice.actions;
 
 export default filterSlice.reducer;

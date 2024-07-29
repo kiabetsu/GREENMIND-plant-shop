@@ -1,28 +1,34 @@
-import { useState } from "react";
-import MultiRangeSlider, { ChangeResult } from "multi-range-slider-react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from 'react';
+import MultiRangeSlider, {
+  ChangeResult,
+} from 'multi-range-slider-react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { setCare, setHight } from "../../redux/slices/filterSlice";
-import CollapseCard from "../CollapseCard/CollapseCard";
+import {
+  setCare,
+  setHight,
+  setMaxPrice,
+  setMaxPrice2,
+  setMinPrice,
+  setMinPrice2,
+} from '../../redux/slices/filterSlice';
+import CollapseCard from '../CollapseCard/CollapseCard';
 
 // function Filter({ priceMin, priceMax, care, onSetCare, hight, onSetHight }) {
-function Filter({ priceMin, priceMax, onSetCare }) {
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(10000);
-  // const [minPrice2, setMinPrice2] = useState(0);
-  // const [maxPrice2, setMaxPrice2] = useState(0);
-
-  const care = useSelector((state) => state.filterSlice.care);
-  const hight = useSelector((state) => state.filterSlice.hight);
+function Filter() {
+  const { care, hight, minPrice, maxPrice, minPrice2, maxPrice2 } =
+    useSelector((state) => state.filterSlice);
   const dispatch = useDispatch();
 
   const updateMas = (category, type) => {
     let mas = [...category];
-    mas.indexOf(type) == -1 ? mas.push(type) : mas.splice(mas.indexOf(type), 1);
+    mas.indexOf(type) == -1
+      ? mas.push(type)
+      : mas.splice(mas.indexOf(type), 1);
     return mas;
   };
 
-  const careType = ["Easy", "Medium", "Hard"];
+  const careType = ['Easy', 'Medium', 'Hard'];
   const hightType = [
     [0, 50],
     [50, 90],
@@ -45,7 +51,9 @@ function Filter({ priceMin, priceMax, onSetCare }) {
                   name="min-input"
                   className="input-field min-input"
                   value={minPrice}
-                  onChange={(e) => setMinPrice(e.target.value)}
+                  onChange={(e) =>
+                    dispatch(setMinPrice(e.target.value))
+                  }
                 />
               </div>
             </div>
@@ -57,40 +65,46 @@ function Filter({ priceMin, priceMax, onSetCare }) {
                   name="max-input"
                   className="input-field max-input"
                   value={maxPrice}
-                  onChange={(e) => setMaxPrice(e.target.value)}
+                  onChange={(e) =>
+                    dispatch(setMaxPrice(e.target.value))
+                  }
                 />
               </div>
             </div>
           </div>
-          <div className="range-slider">
-            {/* <MultiRangeSlider
-              min={0}
-              max={10000}
-              minValue={0}
-              maxValue={10000}
+          {/* <div className="range-slider">
+            <MultiRangeSlider
+              min={minPrice}
+              max={maxPrice}
+              minValue={minPrice}
+              maxValue={maxPrice}
               canMinMaxPriceSame={true}
               onInput={(e: ChangeResult) => {
-                setMinPrice(e.minPrice);
-                setMaxPrice(e.maxPrice);
+                dispatch(setMinPrice(e.minPrice));
+                dispatch(setMaxPrice(e.maxPrice));
               }}
               onChange={(e: ChangeResult) => {
-                setMinPrice2(e.minPrice);
-                setMaxPrice2(e.maxPrice);
+                dispatch(setMinPrice2(e.minPrice));
+                dispatch(setMaxPrice2(e.maxPrice));
               }}
               label={false}
               ruler={false}
-              style={{ border: 'none', boxShadow: 'none', padding: '15px 10px' }}
+              style={{
+                border: 'none',
+                boxShadow: 'none',
+                padding: '15px 10px',
+              }}
               barLeftColor="darker(#f3f3f3, 8%)"
               barInnerColor="#C1DCDC"
               barRightColor="darker(#f3f3f3, 8%)"
               thumbLeftColor="#C1DCDC"
               thumbRightColor="#C1DCDC"
-            /> */}
-          </div>
+            />
+          </div> */}
         </div>
       </CollapseCard>
 
-      <CollapseCard style={{ marginTop: "10px" }} title="Care">
+      <CollapseCard style={{ marginTop: '10px' }} title="Care">
         <div className="content">
           {careType.map((value, i) => (
             <label key={i} htmlFor={value}>
@@ -98,10 +112,9 @@ function Filter({ priceMin, priceMax, onSetCare }) {
                 <input
                   name="ct-cb"
                   id={value}
-                  onClick={() => dispatch(setCare(updateMas(care, i)))}
-                  // onClick={() => {
-                  //   onSetCare(updateMas(care, i));
-                  // }}
+                  onClick={() =>
+                    dispatch(setCare(updateMas(care, i)))
+                  }
                   type="checkbox"
                 />
                 <span>{value}</span>
@@ -119,7 +132,9 @@ function Filter({ priceMin, priceMax, onSetCare }) {
                 <input
                   name="ht-cb"
                   id={value[0]}
-                  onClick={() => dispatch(setHight(updateMas(hight, i)))}
+                  onClick={() =>
+                    dispatch(setHight(updateMas(hight, i)))
+                  }
                   type="checkbox"
                 />
                 {i !== hightType.length - 1 ? (
@@ -134,7 +149,6 @@ function Filter({ priceMin, priceMax, onSetCare }) {
           ))}
         </div>
       </CollapseCard>
-      <button className="button button-apply">Apply</button>
     </div>
   );
 }
